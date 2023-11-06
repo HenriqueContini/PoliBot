@@ -24,7 +24,9 @@ module.exports = {
 
       const translation = await translateToPT(text);
 
-      await interaction.editReply("`" + translation + "`");
+      await interaction.editReply(
+        `>>> en: \` ${text} \` \npt: \` ${translation} \``
+      );
     } catch (error) {
       await interaction.editReply(
         "ERRO: Ocorreu algum erro ao tentar traduzir"

@@ -1,11 +1,14 @@
 const { SlashCommandBuilder } = require("discord.js");
-const { translateToEN } = require("../../services/translateToEN");
+const { translateAnyLanguage } = require("../../services/translateAnyLanguage");
 
 module.exports = {
   data: new SlashCommandBuilder()
-    .setName("translate-to-en")
-    .setDescription(
-      "Escreva algo em português para ser traduzido para o inglês"
+    .setName("translate")
+    .setDescription("Escreva algo para ser traduzido em qualquer linguagem")
+    .addStringOption((option) =>
+      option
+        .setName("destino")
+        .setDescription("Código do idioma do resultado. Ex: en, pt, es")
     )
     .addStringOption((option) =>
       option.setName("texto").setDescription("O texto que será traduzido.")
@@ -15,6 +18,7 @@ module.exports = {
 
     try {
       const text = interaction.options.getString("texto") ?? null;
+      const targetLanguage = interaction.options.getString("destino") || "pt";
 
       if (text === null) {
         await interaction.editReply(
@@ -22,12 +26,16 @@ module.exports = {
         );
       }
 
-      const translation = await translateToEN(text);
+      const { translation, from, to } = await translateAnyLanguage(
+        targetLanguage,
+        text
+      );
 
       await interaction.editReply(
-        `>>> pt: \` ${text} \` \nen: \` ${translation} \``
+        `>>> ${from}: \` ${text} \` \n${to}: \` ${translation} \``
       );
     } catch (error) {
+      console.log(error);
       await interaction.editReply(
         "ERRO: Ocorreu algum erro ao tentar traduzir"
       );
