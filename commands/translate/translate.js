@@ -4,7 +4,7 @@ const { translateAnyLanguage } = require("../../services/translateAnyLanguage");
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("translate")
-    .setDescription("Escreva algo para ser traduzido em qualquer linguagem")
+    .setDescription("Escreva algo para ser traduzido em qualquer idioma.")
     .addStringOption((option) =>
       option
         .setName("destino")
