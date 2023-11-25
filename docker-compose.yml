@@ -1,0 +1,8 @@
+services:
+  bot:
+    build: ./
+    env_file: ./.env
+    environment:
+      - MYSQL_HOST=mysqldb
+    ports:
+      - "3000:3000"
