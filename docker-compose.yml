@@ -2,7 +2,5 @@ services:
   bot:
     build: ./
     env_file: ./.env
-    environment:
-      - DISCORD_TOKEN=MTE3MDc3MDYyMDUxNTA5MDYyMg.GbGtTf.I0_NyC78AinCExGKdrkMvGV9H3fenkG067L_R4
     ports:
       - "3000:3000"
